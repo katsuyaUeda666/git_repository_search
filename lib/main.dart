@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_repository_search/pages/homePage.dart';
+import 'package:git_repository_search/pages/home_page.dart';
 
 void main() {
   runApp(const MyApp());
