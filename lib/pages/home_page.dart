@@ -6,7 +6,7 @@ class homePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+      body: AppBar(
         title: const Text('GitHub Search'),
       ),
     );
