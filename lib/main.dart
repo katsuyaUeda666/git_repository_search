@@ -11,11 +11,10 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'GitHub Search',
       themeMode: ThemeMode.system,
       darkTheme: ThemeData.dark(),
       debugShowCheckedModeBanner: false,
-      home: homePage(),
+      home: HomePage(),
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
