@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
-class repositoryListPage extends StatelessWidget {
-  const repositoryListPage({super.key});
+class RepositoryListPage extends StatelessWidget {
+  const RepositoryListPage({super.key});
 
   @override
   Widget build(BuildContext context) {

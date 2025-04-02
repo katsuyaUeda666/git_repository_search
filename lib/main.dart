@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:git_repository_search/pages/home_page.dart';
+import 'package:git_repository_search/router/router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -10,15 +10,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      themeMode: ThemeMode.system,
-      darkTheme: ThemeData.dark(),
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+    return MaterialApp.router(
+      routerConfig: router,
     );
   }
 }
