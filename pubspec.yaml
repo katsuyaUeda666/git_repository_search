@@ -21,6 +21,9 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   build_runner:
+
+  riverpod_generator:
+
   freezed:
   json_serializable:
 
