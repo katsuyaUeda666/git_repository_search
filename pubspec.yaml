@@ -11,6 +11,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+
+  flutter_riverpod:
   dio:
   freezed_annotation:
   go_router:

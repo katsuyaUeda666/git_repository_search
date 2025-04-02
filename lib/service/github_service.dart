@@ -30,4 +30,16 @@ class GithubService {
       throw Exception('Error occurred while fetching repositories: $e');
     }
   }
+
+  /// 指定されたオーナーとリポジトリ名に対して詳細情報を取得する
+  Future<Repository> fetchRepositoryDetail(
+      String owner, String repoName) async {
+    final response =
+        await _dio.get('https://api.github.com/repos/$owner/$repoName');
+    if (response.statusCode == 200) {
+      return Repository.fromJson(response.data);
+    } else {
+      throw Exception('Failed to fetch repository details');
+    }
+  }
 }
