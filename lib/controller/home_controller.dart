@@ -11,7 +11,7 @@ class HomeController {
   void onSearchSubmitted(String query, BuildContext context) {
     if (query.isNotEmpty) {
       // ルーターで /search に遷移、extra に検索キーワードを渡す例
-      context.go('/search', extra: query);
+      context.push('/search', extra: query);
     }
   }
 }
