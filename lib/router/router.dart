@@ -21,7 +21,7 @@ final GoRouter router = GoRouter(
       name: 'search',
       pageBuilder: (context, state) {
         final query = state.extra as String?;
-        return _buildPage(state, RepositoryListPage());
+        return _buildPage(state, RepositoryListPage(query: query ?? ''));
       },
     ),
 
@@ -40,7 +40,6 @@ final GoRouter router = GoRouter(
 ///
 /// Android も含め、CupertinoPage を使うことでスワイプバック（iOS/Android両方）で戻れるように設定しています。
 Page<dynamic> _buildPage(GoRouterState state, Widget child) {
-  // ※もしプラットフォームごとに切り替えたい場合は Platform.isAndroid 等で条件分岐可能です
   return CupertinoPage(
     key: state.pageKey,
     child: child,
