@@ -32,10 +32,12 @@ class GithubService {
   }
 
   /// 指定されたオーナーとリポジトリ名に対して詳細情報を取得する
-  Future<Repository> fetchRepositoryDetail(
-      String owner, String repoName) async {
-    final response =
-        await _dio.get('https://api.github.com/repos/$owner/$repoName');
+  Future<Repository> fetchRepositoryDetail(String owner, String repo) async {
+    final response = await _dio.get(
+      'https://api.github.com/repos/$owner/$repo',
+      options: Options(headers: {'Accept': 'application/vnd.github.v3+json'}),
+    );
+
     if (response.statusCode == 200) {
       return Repository.fromJson(response.data);
     } else {
