@@ -3,52 +3,57 @@ import 'package:git_repository_search/model/repository.dart';
 
 class RepositoryCard extends StatelessWidget {
   final Repository repository;
+  final VoidCallback onTap;
 
   const RepositoryCard({
-    Key? key,
+    super.key,
     required this.repository,
-  }) : super(key: key);
+    required this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-      elevation: 3,
-      child: ListTile(
-        leading: CircleAvatar(
-          backgroundImage: NetworkImage(repository.ownerAvatarUrl),
+      elevation: 2,
+      margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(4),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: _buildContent(),
         ),
-        title: Text(repository.name),
-        subtitle: Text(repository.language ?? '言語情報なし'),
-        trailing: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.end,
-          children: [
-            // スター数の表示
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.star, size: 16, color: Colors.amber),
-                const SizedBox(width: 4),
-                Text(repository.stargazersCount.toString()),
-              ],
-            ),
-            const SizedBox(height: 4),
-            // フォーク数の表示
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                const Icon(Icons.call_split, size: 16),
-                const SizedBox(width: 4),
-                Text(repository.forksCount.toString()),
-              ],
-            ),
-          ],
-        ),
-        onTap: () {
-          // ここでリポジトリ詳細ページへの遷移処理などを追加できます
-        },
       ),
+    );
+  }
+
+  Widget _buildContent() {
+    return Row(
+      children: [
+        CircleAvatar(
+          backgroundImage: NetworkImage(repository.owner.avatarUrl ?? ''),
+          radius: 24,
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                repository.name,
+                style: const TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              Text(
+                repository.owner.login ?? 'Unknown',
+                style: const TextStyle(color: Colors.grey),
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
