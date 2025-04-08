@@ -46,10 +46,6 @@ class RepositoryCard extends StatelessWidget {
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              Text(
-                repository.owner.login ?? 'Unknown',
-                style: const TextStyle(color: Colors.grey),
-              ),
             ],
           ),
         ),

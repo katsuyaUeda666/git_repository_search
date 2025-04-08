@@ -17,6 +17,7 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
+.vscode/
 
 # The .vscode folder contains launch configuration and tasks you configure in
 # VS Code which you may wish to be included in version control, so this line
@@ -43,3 +44,32 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Android-specific files
+android/.gradle/
+android/local.properties
+
+# iOS-specific files
+ios/Flutter/App.framework
+ios/Flutter/Flutter.framework
+ios/Flutter/Debug.xcconfig
+ios/Flutter/Release.xcconfig
+ios/Podfile.lock
+ios/Pods/
+ios/.symlinks/
+ios/Runner.xcworkspace/
+
+# Generated code (optional)
+*.g.dart
+*.freezed.dart
+
+# FVM-related files
+.fvm/flutter_sdk  # FVMによるFlutter SDKへのシンボリックリンクを無視
+.fvm/.settings    # FVM設定ファイル（オプション）
+
+# Temporary files and backups
+*.tmp
+*.log
+*.swp
+*.swo
+.DS_Store  # macOS metadata file.
