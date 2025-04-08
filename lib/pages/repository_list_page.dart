@@ -57,10 +57,9 @@ class _RepositoryListPageState extends ConsumerState<RepositoryListPage> {
       );
     }
 
-    return ListView.separated(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+    return ListView.builder(
+      padding: EdgeInsets.zero, // リスト全体の余白をなくす
       itemCount: repositories.length,
-      separatorBuilder: (context, index) => const Divider(height: 1),
       itemBuilder: (context, index) {
         final repository = repositories[index];
         return RepositoryCard(
