@@ -30,7 +30,11 @@ class _HomePageState extends ConsumerState<HomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center, // 縦方向に中央配置
           children: [
-            const Text('GitHub Search'),
+            const Text('GitHub Search',
+                style: TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.bold,
+                )),
             const SizedBox(height: 20),
             SearchInputForm(
               controller: _searchController,
