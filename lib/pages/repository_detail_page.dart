@@ -92,53 +92,43 @@ class RepositoryDetailPage extends ConsumerWidget {
   }
 
   Widget _buildStatsGrid(Repository repository) {
-    return ConstrainedBox(
-      constraints: const BoxConstraints(
-        maxHeight: 200,
-      ),
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final crossAxisCount = constraints.maxWidth > 600 ? 3 : 2;
-          return GridView.count(
-            shrinkWrap: true,
-            physics: const NeverScrollableScrollPhysics(),
-            crossAxisCount: crossAxisCount,
-            childAspectRatio: constraints.maxWidth > 600 ? 2 : 3,
-            crossAxisSpacing: 16,
-            mainAxisSpacing: 16,
-            children: [
-              _buildStatItem(
-                icon: Icons.star_rounded,
-                color: Colors.amber,
-                label: 'Stars',
-                value: repository.stargazersCount ?? 0,
-                iconSize: 24.0,
-              ),
-              _buildStatItem(
-                icon: Icons.remove_red_eye_rounded,
-                color: Colors.blue,
-                label: 'Watchers',
-                value: repository.watchersCount ?? 0,
-                iconSize: 24.0,
-              ),
-              _buildStatItem(
-                icon: Icons.call_split_rounded,
-                color: Colors.green,
-                label: 'Forks',
-                value: repository.forksCount ?? 0,
-                iconSize: 24.0,
-              ),
-              _buildStatItem(
-                icon: Icons.error_outline_rounded,
-                color: Colors.red,
-                label: 'Issues',
-                value: repository.openIssuesCount ?? 0,
-                iconSize: 24.0,
-              ),
-            ],
-          );
-        },
-      ),
+    return GridView.count(
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      crossAxisCount: 2,
+      childAspectRatio: 2.5,
+      crossAxisSpacing: 16,
+      mainAxisSpacing: 16,
+      children: [
+        _buildStatItem(
+          icon: Icons.star_rounded,
+          color: Colors.amber,
+          label: 'Stars',
+          value: repository.stargazersCount ?? 0,
+          iconSize: 24.0,
+        ),
+        _buildStatItem(
+          icon: Icons.remove_red_eye_rounded,
+          color: Colors.blue,
+          label: 'Watchers',
+          value: repository.watchersCount ?? 0,
+          iconSize: 24.0,
+        ),
+        _buildStatItem(
+          icon: Icons.call_split_rounded,
+          color: Colors.green,
+          label: 'Forks',
+          value: repository.forksCount ?? 0,
+          iconSize: 24.0,
+        ),
+        _buildStatItem(
+          icon: Icons.error_outline_rounded,
+          color: Colors.red,
+          label: 'Issues',
+          value: repository.openIssuesCount ?? 0,
+          iconSize: 24.0,
+        ),
+      ],
     );
   }
 
@@ -157,21 +147,24 @@ class RepositoryDetailPage extends ConsumerWidget {
           children: [
             Icon(icon, color: color, size: iconSize),
             const SizedBox(width: 12),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  label,
-                  style: const TextStyle(fontSize: 12),
-                ),
-                Text(
-                  value.toString(),
-                  style: const TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
+            Expanded(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    label,
+                    style: const TextStyle(fontSize: 12),
                   ),
-                ),
-              ],
+                  Text(
+                    value.toString(),
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
