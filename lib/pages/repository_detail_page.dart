@@ -45,7 +45,7 @@ class RepositoryDetailPage extends ConsumerWidget {
         children: [
           _buildHeaderSection(context, repository),
           const SizedBox(height: 24),
-          _buildStatsGrid(repository),
+          _buildStatsGrid(context, repository),
           const SizedBox(height: 24),
           _buildAdditionalInfo(context, repository),
         ],
@@ -60,7 +60,6 @@ class RepositoryDetailPage extends ConsumerWidget {
         CircleAvatar(
           radius: 48,
           backgroundImage: NetworkImage(repository.owner.avatarUrl ?? ''),
-          onBackgroundImageError: (_, __) => const Icon(Icons.error),
           child: repository.owner.avatarUrl == null
               ? const Icon(Icons.person, size: 48)
               : null,
@@ -72,18 +71,15 @@ class RepositoryDetailPage extends ConsumerWidget {
             children: [
               Text(
                 repository.name,
-                style: Theme.of(context).textTheme.headlineSmall?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                style: Theme.of(context)
+                    .textTheme
+                    .headlineSmall
+                    ?.copyWith(fontWeight: FontWeight.bold),
               ),
               if (repository.owner.login != null)
-                Text(
-                  'by ${repository.owner.login}',
-                  style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Theme.of(context).colorScheme.secondary,
-                      ),
-                ),
+                Text('by ${repository.owner.login}',
+                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                        color: Theme.of(context).colorScheme.secondary)),
             ],
           ),
         ),
@@ -91,44 +87,58 @@ class RepositoryDetailPage extends ConsumerWidget {
     );
   }
 
-  Widget _buildStatsGrid(Repository repository) {
-    return GridView.count(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      crossAxisCount: 2,
-      childAspectRatio: 2.5,
-      crossAxisSpacing: 16,
-      mainAxisSpacing: 16,
-      children: [
-        _buildStatItem(
-          icon: Icons.star_rounded,
-          color: Colors.amber,
-          label: 'Stars',
-          value: repository.stargazersCount ?? 0,
-          iconSize: 24.0,
-        ),
-        _buildStatItem(
-          icon: Icons.remove_red_eye_rounded,
-          color: Colors.blue,
-          label: 'Watchers',
-          value: repository.watchersCount ?? 0,
-          iconSize: 24.0,
-        ),
-        _buildStatItem(
-          icon: Icons.call_split_rounded,
-          color: Colors.green,
-          label: 'Forks',
-          value: repository.forksCount ?? 0,
-          iconSize: 24.0,
-        ),
-        _buildStatItem(
-          icon: Icons.error_outline_rounded,
-          color: Colors.red,
-          label: 'Issues',
-          value: repository.openIssuesCount ?? 0,
-          iconSize: 24.0,
-        ),
-      ],
+  Widget _buildStatsGrid(BuildContext context, Repository repository) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final crossAxisCount = constraints.maxWidth > 600 ? 3 : 2;
+
+        // childAspectRatioの安全な計算
+        final aspectRatio = constraints.maxWidth > 600
+            ? 2.0 // 大画面では横長に
+            : (constraints.maxWidth /
+                    (constraints.maxHeight > 0 ? constraints.maxHeight : 1) *
+                    0.8)
+                .clamp(1.0, 1.5); // 小画面では縦横比を制限
+
+        return GridView.count(
+          shrinkWrap: true,
+          physics: const NeverScrollableScrollPhysics(),
+          crossAxisCount: crossAxisCount,
+          childAspectRatio: aspectRatio,
+          crossAxisSpacing: 12,
+          mainAxisSpacing: 12,
+          children: [
+            _buildStatItem(
+              icon: Icons.star_rounded,
+              color: Colors.amber,
+              label: 'Stars',
+              value: repository.stargazersCount ?? 0,
+              iconSize: 20.0,
+            ),
+            _buildStatItem(
+              icon: Icons.remove_red_eye_rounded,
+              color: Colors.blue,
+              label: 'Watchers',
+              value: repository.watchersCount ?? 0,
+              iconSize: 20.0,
+            ),
+            _buildStatItem(
+              icon: Icons.call_split_rounded,
+              color: Colors.green,
+              label: 'Forks',
+              value: repository.forksCount ?? 0,
+              iconSize: 20.0,
+            ),
+            _buildStatItem(
+              icon: Icons.error_outline_rounded,
+              color: Colors.red,
+              label: 'Issues',
+              value: repository.openIssuesCount ?? 0,
+              iconSize: 20.0,
+            ),
+          ],
+        );
+      },
     );
   }
 
@@ -142,7 +152,7 @@ class RepositoryDetailPage extends ConsumerWidget {
     return Card(
       elevation: 2,
       child: Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
         child: Row(
           children: [
             Icon(icon, color: color, size: iconSize),
